@@ -22,12 +22,13 @@ do
         case 'Z':
             boardSize--;
             break;
+        case 'q':
+        case 'Q':
+            drawAgain = false;
+            break;
         default:
             break;
     }
-    if (pressedKey.KeyChar == 'q' || pressedKey.KeyChar == 'Q')
-        drawAgain = false;
-
     Console.Clear();
 } while (drawAgain);
 
