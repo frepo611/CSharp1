@@ -16,7 +16,7 @@ do
 
     DrawGrid(boardSize);
     DrawAt('P', 1, 1, origoX, origoY);
-    ConsoleKeyInfo pressedKey = Console.ReadKey();
+    ConsoleKeyInfo pressedKey = Console.ReadKey(true);
     switch (pressedKey.KeyChar)
     {
         case 'x':
