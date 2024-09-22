@@ -1,8 +1,9 @@
 ﻿
 
 
-int boardSize = 3;
+Console.CursorVisible = false;
 
+int boardSize = 3;
 bool drawAgain = true;
 do
 {
