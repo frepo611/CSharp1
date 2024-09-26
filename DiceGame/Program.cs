@@ -96,16 +96,17 @@ namespace DiceGame
             sumOfRolls = 0;
 
             Console.SetCursorPosition(0, Console.CursorTop + 2);
+            bool scoreStillZero = false;
             try
             {
-
+                int a;
+                scoreStillZero = int.TryParse(scoreCalculation, out a);
             }
-            catch (Exception)
+            catch (ArgumentException)
             {
 
-                throw;
             }
-            Console.WriteLine($"{resultMessage}Du har {(scoreChange ? "nu" : "forfarande")} {score} ({scoreCalculation}) poäng.");
+            Console.WriteLine($"{resultMessage}Du har {((scoreChange && !scoreStillZero)? "nu" : "forfarande")} {score} ({scoreCalculation}) poäng.");
         }
 
         // Draw a die. Indent cursor positions
