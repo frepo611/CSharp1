@@ -7,38 +7,118 @@ namespace DiceGame
         static int sumOfRolls = 0;
         static int score = 0;
         static int[] rolls = new int[noOfDice];
+        static int indentation = 0;
         static void Main(string[] args)
         {
-            int intendation = 0;
-            for (int i = 0; i < noOfDice; i++)
+            do
             {
-                rolls[i] = Random.Shared.Next(1,7);
-                sumOfRolls += rolls[i];
-                DrawDice(rolls[i], intendation);
-                intendation += 10;
-            }
-            Console.ReadKey();
 
-            //EvaluateResult(sumOfRolls);
+                RollDice();
+                EvaluateResult();
+                Console.Clear();
+            } while (true);
+
         }
 
-        //static void EvaluateResult(int sumOfRolls)
-        //{
-        //    Console.SetCursorPosition(0, Console.CursorTop - 2);
-        //    Console.WriteLine(
-        //}
+        static void RollDice()
+        {
+            for (int i = 0; i < noOfDice; i++)
+            {
+                rolls[i] = Random.Shared.Next(1, 7);
+                sumOfRolls += rolls[i];
+                DrawDice(rolls[i], indentation);
+                indentation += 10;
+            }
+            indentation = 0;
+        }
+
+        static void UpdateScore(int change)
+        {
+            if (score + change > 0)
+                score += change;
+            else score = 0;
+        }
+        static void EvaluateResult()
+        {
+            int noOfMatchingDice = 0;
+            string resultMessage = string.Empty;
+            string scoreCalculation = $"{score}";
+            bool scoreChange = false;
+
+            //check for matching dice
+            if ((rolls[0] == rolls[1]) && (rolls[0] == rolls[2]))
+            {
+                noOfMatchingDice = 3;
+            }
+            else if ((rolls[0] == rolls[1]) ||
+                      rolls[0] == rolls[2] ||
+                      rolls[1] == rolls[2])
+            {
+                noOfMatchingDice = 2;
+            }
+            //score matching dice
+            if (noOfMatchingDice > 0)
+            {
+                if (noOfMatchingDice == 2)
+                {
+                    resultMessage = "Roligt, du fick två lika. Du får tre poäng.\n";
+                    scoreCalculation = $"{scoreCalculation} + 3";
+                    scoreChange = true;
+                    UpdateScore(3);
+                }
+                else if (noOfMatchingDice == 3)
+                {
+                    resultMessage = "Roligt, du fick tre lika. Du får tio poäng.\n";
+                    scoreChange = true;
+                    scoreCalculation = $"{scoreCalculation} + 10";
+                    UpdateScore(10);
+                }
+            }
+            else
+            {
+                resultMessage = "Tråkigt, du fick inga lika. Du får inga poäng.\n";
+            }
+
+            //check and score sum of rolls
+            if (sumOfRolls < 9)
+            {
+                resultMessage = $"{resultMessage}Tråkigt, summan({sumOfRolls}) är mindre än nio. Du får fem minuspoäng.\n";
+                scoreChange = true;
+                scoreCalculation = $"{scoreCalculation} - 5";
+                UpdateScore(-5);
+
+            }
+            else 
+            {
+                resultMessage = $"{resultMessage}Tur, summan({sumOfRolls}) är större än åtta. Du får inga minuspoäng.\n";
+            }
+            // reset sum of rolls
+            sumOfRolls = 0;
+
+            Console.SetCursorPosition(0, Console.CursorTop + 2);
+            try
+            {
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            Console.WriteLine($"{resultMessage}Du har {(scoreChange ? "nu" : "forfarande")} {score} ({scoreCalculation}) poäng.");
+        }
 
         // Draw a die. Indent cursor positions
         static void DrawDice(int roll, int indentation)
         {
             int topPosition = 0;
 
-            string diceTop =    "┌─────┐";
-            string twoDots =    "│ o o │";
-            string noDots =     "│     │";
-            string middleDot =  "│  o  │";
-            string leftDot =    "│ o   │";
-            string rightDot =   "│   o │";
+            string diceTop = "┌─────┐";
+            string twoDots = "│ o o │";
+            string noDots = "│     │";
+            string middleDot = "│  o  │";
+            string leftDot = "│ o   │";
+            string rightDot = "│   o │";
             string diceBottom = "└─────┘";
             string row1 = string.Empty;
             string row2 = string.Empty;
@@ -77,7 +157,7 @@ namespace DiceGame
                     row1 = twoDots;
                     row2 = twoDots;
                     row3 = twoDots;
-                    break;  
+                    break;
                 default:
                     break;
             }
