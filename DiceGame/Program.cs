@@ -43,7 +43,7 @@ namespace DiceGame
             int noOfMatchingDice = 0;
             string resultMessage = string.Empty;
             string scoreCalculation = $"{score}";
-            bool scoreChange = false;
+            int scoreFromPreviousRoll = score;
 
             //check for matching dice
             if ((rolls[0] == rolls[1]) && (rolls[0] == rolls[2]))
@@ -63,13 +63,11 @@ namespace DiceGame
                 {
                     resultMessage = "Roligt, du fick två lika. Du får tre poäng.\n";
                     scoreCalculation = $"{scoreCalculation} + 3";
-                    scoreChange = true;
                     UpdateScore(3);
                 }
                 else if (noOfMatchingDice == 3)
                 {
                     resultMessage = "Roligt, du fick tre lika. Du får tio poäng.\n";
-                    scoreChange = true;
                     scoreCalculation = $"{scoreCalculation} + 10";
                     UpdateScore(10);
                 }
@@ -83,7 +81,6 @@ namespace DiceGame
             if (sumOfRolls < 9)
             {
                 resultMessage = $"{resultMessage}Tråkigt, summan({sumOfRolls}) är mindre än nio. Du får fem minuspoäng.\n";
-                scoreChange = true;
                 scoreCalculation = $"{scoreCalculation} - 5";
                 UpdateScore(-5);
 
@@ -92,21 +89,24 @@ namespace DiceGame
             {
                 resultMessage = $"{resultMessage}Tur, summan({sumOfRolls}) är större än åtta. Du får inga minuspoäng.\n";
             }
-            // reset sum of rolls
-            sumOfRolls = 0;
+
+            ResetSumOfRolls();
 
             Console.SetCursorPosition(0, Console.CursorTop + 2);
-            bool scoreStillZero = false;
-            try
-            {
-                int a;
-                scoreStillZero = int.TryParse(scoreCalculation, out a);
-            }
-            catch (ArgumentException)
-            {
 
+            if ((score == scoreFromPreviousRoll))
+            {
+                Console.WriteLine($"{resultMessage}Du har forfarande {score} poäng.");
             }
-            Console.WriteLine($"{resultMessage}Du har {((scoreChange && !scoreStillZero)? "nu" : "forfarande")} {score} ({scoreCalculation}) poäng.");
+            else
+            {
+                Console.WriteLine($"{resultMessage}Du har nu {score} ({scoreCalculation}) poäng.");
+            }
+        }
+
+        private static void ResetSumOfRolls()
+        {
+            sumOfRolls = 0;
         }
 
         // Draw a die. Indent cursor positions
