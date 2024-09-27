@@ -7,10 +7,10 @@ namespace BilFabriken
         static int totalTime = 0;
         static void Main(string[] args)
         {
+
             for (int i = 0; i < 10; i++)
             {
             BuildCar();
-                
             }
             Console.ReadLine();
         }

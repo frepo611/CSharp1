@@ -5,6 +5,15 @@ Console.CursorVisible = false;
 
 int boardSize = 3;
 bool drawAgain = true;
+(int,int) playerStartPosition = GenerateRandomCoord(boardSize);
+(int,int) treasureStartPosition = GenerateRandomCoord(boardSize);
+
+while (playerStartPosition == treasureStartPosition)
+{
+    treasureStartPosition = GenerateRandomCoord(boardSize);
+}
+
+bool firstTurn = true;
 do
 {
     Console.WriteLine(
@@ -14,11 +23,21 @@ do
     int origoY = 7;
     int origoX = 2;
 
+    int dx = 0;
+    int dy = 0;
     DrawGrid(boardSize);
-    DrawAt('P', 1, 1, origoX, origoY);
+    DrawAt('X', treasureStartPosition, origoX, origoY);
+    if (firstTurn)
+    {
+        playerPosition = playerStartPosition;
+        firstTurn = false;
+    }
+
+
     ConsoleKeyInfo pressedKey = Console.ReadKey(true);
     switch (pressedKey.KeyChar)
     {
+        
         case 'x':
         case 'X':
             boardSize++;
@@ -34,12 +53,17 @@ do
         default:
             break;
     }
+    (int, int) playerPosition = ;
+    DrawAt('P', playerPosition, origoX, origoY);
     Console.Clear();
 } while (drawAgain);
 
-void DrawAt(char thing, int x, int y, int origoX, int origoY)
+void DrawAt(char thing, (int, int) coords, int origoX, int origoY)
 {
-    Console.SetCursorPosition(origoX + x*4, origoY + y*4);
+    int cellCoord_x = coords.Item1;
+    int cellCoord_y = coords.Item2;
+    int cellSize = 4;
+    Console.SetCursorPosition(origoX + cellCoord_x * cellSize, origoY + cellCoord_y*cellSize);
     Console.Write(thing);
 }
 
@@ -70,4 +94,10 @@ static void DrawGrid(int boardSize)
     {
         Console.Write('x');
     }
+}
+
+static (int,int) GenerateRandomCoord(int boardSize)
+{
+    var random = new Random();
+    return (random.Next(0,boardSize), random.Next(0, boardSize));
 }

@@ -20,7 +20,16 @@
         }
         static void Main(string[] args)
         {
-            int energyLevel = 0;     
+            int energyLevel = 0;
+            Console.WriteLine($"{"Aktivitet",-26} Energinivå");
+            for (int i = 0; i < 41; i++)
+            {
+                Console.Write("=");
+                if (i == 40)
+                {
+                    Console.WriteLine();
+                }
+            }
             energyLevel = DoActivity(Activities.Wakeup, energyLevel);
             energyLevel = DoActivity(Activities.EatBreakfast, energyLevel);
             energyLevel = DoActivity(Activities.DropOffKids, energyLevel);
