@@ -10,13 +10,24 @@ namespace DiceGame
         static int indentation = 0;
         static void Main(string[] args)
         {
+            bool rollAgain = true;
             do
             {
-
                 RollDice();
                 EvaluateResult();
+                
+                Console.WriteLine("Press 'q' to quit. Press any other key to roll again.");
+                var pressedKey = Console.ReadKey();
                 Console.Clear();
-            } while (true);
+                switch (pressedKey.Key)
+                {
+                    case ConsoleKey.Q:
+                        rollAgain = false;
+                        break;
+                    default:
+                        break;
+                }
+            } while (rollAgain);
 
         }
 
