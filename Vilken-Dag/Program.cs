@@ -54,11 +54,11 @@ namespace Vilken_Dag
             DateTime birthDay;
             do
             {
-                Console.Write("När din födelsedag: ");
+                Console.Write("När din födelsedag (US datumstandard): ");
                 string input = Console.ReadLine();
                 bool validInput = DateTime.TryParse(input, out birthDay);
                 if (validInput) runAgain = false;
-                else Console.WriteLine("Förstår inte vad du menar");
+                else Console.WriteLine("Förstår inte vad du menar.");
 
             }
             while (runAgain);
