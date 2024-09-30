@@ -1,6 +1,4 @@
 ﻿
-using System.Runtime.CompilerServices;
-
 namespace Vilken_Dag
 {
     internal class Program
@@ -15,7 +13,7 @@ namespace Vilken_Dag
             {
                 Console.WriteLine("Välkommen till:\n\n--Vilken dag?--\n");
                 Console.WriteLine("Välj funktion:");
-                Console.WriteLine("1. Siffra till månad som sträng\n2. Dagens datum som sträng\n3. Vilken veckodag var det?");
+                Console.WriteLine("1. Siffra till månad som sträng\n2. Dagens datum som sträng\n3. Vilken veckodag föddes du på?");
                 var userInputKey = Console.ReadKey(true);
 
                 switch (userInputKey.Key)
@@ -30,12 +28,16 @@ namespace Vilken_Dag
                     case ConsoleKey.D2:
                         month = DateTime.Now.Month;
                         int day = (int)DateTime.Now.DayOfWeek;
-                        Console.WriteLine($"Idag är det {IntegerToDay(day).ToLower()} {IntegerToMonth(month).ToLower()} {DateTime.Now.Day} {DateTime.Now.Year}.");
+                        bool dateEndsWithOne = (DateTime.Now.Day.ToString()[^1] == '1');
+                        Console.WriteLine($"Idag är det {IntegerToDay(day).ToLower()} den {DateTime.Now.Day}{(dateEndsWithOne? ":a":":e")} {IntegerToMonth(month).ToLower()} {DateTime.Now.Year}.");
                         Console.ReadKey();
                         break;
                     case ConsoleKey.NumPad3:
                     case ConsoleKey.D3:
-                        //WhatDateAsString();
+                        DateTime userDate = AskForDate();
+                        day = (int)userDate.DayOfWeek;
+                        Console.WriteLine($"Du föddes på en {IntegerToDay(day).ToLower()}.");
+                        Console.ReadKey();
                         break;
                     default:
                         runAgain = false;
@@ -44,6 +46,23 @@ namespace Vilken_Dag
                 Console.Clear();
             } while (runAgain);
 
+        }
+
+        private static DateTime AskForDate()
+        {
+            bool runAgain = true;
+            DateTime birthDay;
+            do
+            {
+                Console.Write("När din födelsedag: ");
+                string input = Console.ReadLine();
+                bool validInput = DateTime.TryParse(input, out birthDay);
+                if (validInput) runAgain = false;
+                else Console.WriteLine("Förstår inte vad du menar");
+
+            }
+            while (runAgain);
+            return birthDay;
         }
 
         private static string IntegerToDay(int day)
