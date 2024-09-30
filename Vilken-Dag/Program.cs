@@ -28,7 +28,7 @@ namespace Vilken_Dag
                     case ConsoleKey.D2:
                         month = DateTime.Now.Month;
                         int day = (int)DateTime.Now.DayOfWeek;
-                        bool dateEndsWithOne = (DateTime.Now.Day.ToString()[^1] == '1');
+                        bool dateEndsWithOne = (DateTime.Now.Day.ToString()[^1] == '1'); // Checks if the last char of the day of month is a '1'
                         Console.WriteLine($"Idag är det {IntegerToDay(day).ToLower()} den {DateTime.Now.Day}{(dateEndsWithOne? ":a":":e")} {IntegerToMonth(month).ToLower()} {DateTime.Now.Year}.");
                         Console.ReadKey();
                         break;
