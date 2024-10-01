@@ -6,7 +6,7 @@ namespace Medeltemperatur
         static void Main(string[] args)
 
         {
-            const int ARRAY_LENGTH = 2;
+            const int ARRAY_LENGTH = 5;
             double[] temperatures = new double[ARRAY_LENGTH];
 
             temperatures = AskForTemperatures(temperatures.Length);
