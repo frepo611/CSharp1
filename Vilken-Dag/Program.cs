@@ -56,6 +56,7 @@ namespace Vilken_Dag
             {
                 Console.Write("När din födelsedag (US datumstandard): ");
                 string input = Console.ReadLine();
+
                 bool validInput = DateTime.TryParse(input, out birthDay);
                 if (validInput) runAgain = false;
                 else Console.WriteLine("Förstår inte vad du menar.");
