@@ -10,7 +10,7 @@ namespace RäknaDiagonalen
             {
                 { 22, 50, 11, 2, 49 },   // First row
                 { 92, 63, 12, 64, 37 },  // Second row
-                { 21, 25, 64, 69, 39 }, // Fourth row
+                { 21, 25, 64, 69, 39 }, // Third row
                 { 21, 25, 71, 69, 39 }, // Fourth row
                 { 19, 39, 58, 28, 83 } // Fifth row
             };
@@ -22,7 +22,7 @@ namespace RäknaDiagonalen
 
             Console.WriteLine("Slumpad matris:");
             int matrixSize = 6;
-            int[,] otherNumbers = GetRandomMatrix(matrixSize, 0, 100);
+            int[,] otherNumbers = GetRandomMatrix(matrixSize, -100, 100);
             Console.Write(MatrixToString(otherNumbers));
             Console.WriteLine($"Diagonalsumman är: {GetMainDiagonalSum(otherNumbers)}");
 
@@ -37,7 +37,7 @@ namespace RäknaDiagonalen
                 {
                     for (int j = 0; j < array.GetLength(1); j++)
                     {
-                        sb.Append($"{array[i, j],-4}");
+                        sb.Append($"{array[i, j],4}");
                     }
                     sb.AppendLine(); // New line for each row
                 }
