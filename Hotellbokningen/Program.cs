@@ -4,6 +4,7 @@
 
 
 
+using System.ComponentModel.Design;
 using System.Text;
 
 namespace Hotellbokningen
@@ -15,36 +16,67 @@ namespace Hotellbokningen
         static int[] rooms = { 0, 1, 2, 3, 10, 11, 12, 13, 20, 21, 22, 23 };
         static void Main(string[] args)
         {
-            int room = 10;
-            string name = "Andersson";
+            //int room = 10;
+            //string name = "Andersson";
             //PrintRooms();
             //Console.ReadKey();
-            BookRoom(room, name);
-            BookRoom(244, "Jappo");
-            BookRoom(23, "Jappo");
-            PrintRooms();
+            //BookRoom(room, name);
+            //BookRoom(244, "Jappo");
+            //BookRoom(23, "Jappo");
             //Console.ReadKey();
-            int nightlyRevenue = GetNightlyRevenue();
             //int[] vacantRooms = GetVacantRooms();
-            Console.WriteLine($"Hotellet får in {nightlyRevenue} kr per natt.");
-            //foreach (var item in vacantRooms)
-            //{
-            //    Console.WriteLine(item);
-            //}
-            Console.WriteLine($"Lediga rum: {VacantRoomsToString()}");
-
+            //int nightlyRevenue = GetNightlyRevenue();
+            
+            Menu();
 
             Console.ReadKey();
 
         }
 
+        private static void Menu()
+        {
+            bool drawAgain = true;
+            do
+            {
+                PrintRooms();
+                Console.WriteLine($"Hotellet får in {GetNightlyRevenue()} kr per natt.\n");
+                Console.WriteLine($"Lediga rum: {VacantRoomsToString()}\n");
+                Console.Write("Vilket rum vill du boka? ");
+                string input = Console.ReadLine();
+                bool validInput = false;
+                validInput = int.TryParse(input, out int roomNumber);
+                if (validInput)
+                    {
+                    if (!rooms.Contains(roomNumber))
+                    {
+                        Console.WriteLine($"Rum {roomNumber} finns inte!");
+                        Console.WriteLine("Tryck någon tangent för att fortsätta.");
+                        Console.ReadKey();
+                    }
+                    else if (!IsVacant(roomNumber))
+                    {
+                        Console.WriteLine($"Rum {roomNumber} är upptaget!");
+                        Console.WriteLine("Tryck någon tangent för att fortsätta.");
+                        Console.ReadKey();
+                    }
+                    else
+                    {
+                        Console.Write("Vad heter ni? ");
+                        string name = Console.ReadLine();
+                        BookRoom(roomNumber, name);
+                    }
+                }
+                Console.Clear();
+            }
+            while (drawAgain);
+        }
         private static string VacantRoomsToString()
         {
             StringBuilder sb = new();
             var vacantRooms = GetVacantRooms();
             for (int i = 0; i < vacantRooms.Length; i++)
             {
-                if (i == vacantRooms.Length - 1) sb.Append(vacantRooms[i]);
+                if (i == vacantRooms.Length - 1) sb.Append($"{vacantRooms[i]:D2}");
                 else sb.Append($"{vacantRooms[i]:D2}, ");
             }
             return sb.ToString();
