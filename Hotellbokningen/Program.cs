@@ -1,11 +1,4 @@
-﻿
-
-
-
-
-
-using System.ComponentModel.Design;
-using System.Text;
+﻿using System.Text;
 
 namespace Hotellbokningen
 {
@@ -38,6 +31,11 @@ namespace Hotellbokningen
             bool drawAgain = true;
             do
             {
+                Console.WriteLine(@"
+                ╔════════════════════╗
+                ║  HOTEL CALIFORNIA  ║
+                ╚════════════════════╝");
+
                 PrintRooms();
                 Console.WriteLine($"Hotellet får in {GetNightlyRevenue()} kr per natt.\n");
                 Console.WriteLine($"Lediga rum: {VacantRoomsToString()}\n");
@@ -61,7 +59,7 @@ namespace Hotellbokningen
                     }
                     else
                     {
-                        Console.Write("Vad heter ni? ");
+                        Console.Write("Vad heter ni? "); //TODO Don't accept empty string as name
                         string name = Console.ReadLine();
                         BookRoom(roomNumber, name);
                     }
@@ -128,7 +126,7 @@ namespace Hotellbokningen
                 }
             int floorNo = (int)room / 10;
             int roomNo = room - floorNo * 10;
-            hotelRooms[floorNo,roomNo] = name;
+            hotelRooms[floorNo,roomNo] = name; //TODO Ensure that the name gets truncated to not break PrintRoom formatting
         }
 
         private static bool IsVacant(int room)
