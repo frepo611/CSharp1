@@ -3,6 +3,9 @@
 
 
 
+
+using System.Text;
+
 namespace Hotellbokningen
 {
     internal class Program
@@ -17,17 +20,34 @@ namespace Hotellbokningen
             //PrintRooms();
             //Console.ReadKey();
             BookRoom(room, name);
-            BookRoom(12, "Jappo");
+            BookRoom(244, "Jappo");
+            BookRoom(23, "Jappo");
             PrintRooms();
             //Console.ReadKey();
             int nightlyRevenue = GetNightlyRevenue();
-            int[] vacantRooms = GetVacantRooms();
-            foreach (var item in vacantRooms)
-            {
-                Console.WriteLine(item);
-            }
+            //int[] vacantRooms = GetVacantRooms();
+            Console.WriteLine($"Hotellet får in {nightlyRevenue} kr per natt.");
+            //foreach (var item in vacantRooms)
+            //{
+            //    Console.WriteLine(item);
+            //}
+            Console.WriteLine($"Lediga rum: {VacantRoomsToString()}");
+
+
             Console.ReadKey();
 
+        }
+
+        private static string VacantRoomsToString()
+        {
+            StringBuilder sb = new();
+            var vacantRooms = GetVacantRooms();
+            for (int i = 0; i < vacantRooms.Length; i++)
+            {
+                if (i == vacantRooms.Length - 1) sb.Append(vacantRooms[i]);
+                else sb.Append($"{vacantRooms[i]:D2}, ");
+            }
+            return sb.ToString();
         }
 
         private static int[] GetVacantRooms()
@@ -68,7 +88,12 @@ namespace Hotellbokningen
         }
 
         private static void BookRoom(int room, string name)
-        {
+        {   
+            if (!rooms.Contains(room))
+                {
+                Console.WriteLine($"Rum {room} finns inte!");
+                return;
+                }
             int floorNo = (int)room / 10;
             int roomNo = room - floorNo * 10;
             hotelRooms[floorNo,roomNo] = name;
