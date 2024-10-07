@@ -64,7 +64,37 @@ namespace Kassaapparaten_List_excercise_
 
         private static void RemoveFromInvoice()
         {
-            throw new NotImplementedException();
+            while (true)
+            {
+                Console.Write("Ange en post att ta bort. (Tom post för att gå till menyn): ");
+                string input = Console.ReadLine();
+                if (input == string.Empty)
+                {
+                    Console.Clear();
+                    return;
+                }
+                bool validEntry = int.TryParse(input, out int postIndex);
+                if (postIndex < 1 || postIndex > invoice.Count)
+                {
+                    Console.WriteLine($"Post {postIndex} finns inte. Tryck någon tangent för att fortsätta.");
+                    Console.ReadKey();
+                    PrintInvoice();
+                    continue;
+                }
+                if (validEntry)
+                {
+                    double removedPost = invoice[postIndex - 1];
+                    invoice.RemoveAt(postIndex - 1);
+                    Console.WriteLine($"{postIndex}: {removedPost:C2} borttagen. Tryck någon tangent för att fortsätta.");
+                    Console.ReadKey();
+                    PrintInvoice();
+                    if (invoice.Count == 0) 
+                    {
+                        Console.ReadKey();
+                    }
+                }
+            }
+
         }
 
         private static void AddToInvoice()
