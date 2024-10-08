@@ -130,7 +130,8 @@ namespace Hotellbokningen
                 }
             int floorNo = (int)room / 10;
             int roomNo = room - floorNo * 10;
-            hotelRooms[floorNo,roomNo] = name; //TODO Ensure that the name gets truncated to not break PrintRoom formatting
+            name = name.Substring(0, 11);
+            hotelRooms[floorNo,roomNo] = name;
         }
 
         private static bool IsVacant(int room)
