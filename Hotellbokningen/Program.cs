@@ -59,9 +59,13 @@ namespace Hotellbokningen
                     }
                     else
                     {
-                        Console.Write("Vad heter ni? "); //TODO Don't accept empty string as name
-                        string name = Console.ReadLine();
-                        BookRoom(roomNumber, name);
+                        string name;
+                        do
+                        {
+                            Console.Write("Vad heter ni? ");
+                            name = Console.ReadLine();
+                        } while (string.IsNullOrEmpty(name));
+                            BookRoom(roomNumber, name); 
                     }
                 }
                 Console.Clear();
