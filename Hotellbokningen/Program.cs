@@ -1,25 +1,16 @@
-﻿using System.Text;
+﻿using System.Diagnostics;
+using System.Text;
 
 namespace Hotellbokningen
 {
     internal class Program
     {
-        static string[,] hotelRooms = new string[3, 4];
+        static string?[,] hotelRooms = new string[3, 4];
         static int[] priceList = {650,775,995};
         static int[] rooms = { 0, 1, 2, 3, 10, 11, 12, 13, 20, 21, 22, 23 };
+        static string fileName = "bookings.txt";
         static void Main(string[] args)
         {
-            //int room = 10;
-            //string name = "Andersson";
-            //PrintRooms();
-            //Console.ReadKey();
-            //BookRoom(room, name);
-            //BookRoom(244, "Jappo");
-            //BookRoom(23, "Jappo");
-            //Console.ReadKey();
-            //int[] vacantRooms = GetVacantRooms();
-            //int nightlyRevenue = GetNightlyRevenue();
-            
             Menu();
 
             Console.ReadKey();
@@ -28,6 +19,13 @@ namespace Hotellbokningen
 
         private static void Menu()
         {
+
+            // ladda data
+            if (File.Exists(fileName))
+            {
+                hotelRooms = FileIO.Load(fileName); 
+            }
+
             bool drawAgain = true;
             do
             {
@@ -35,11 +33,12 @@ namespace Hotellbokningen
                 ╔════════════════════╗
                 ║  HOTEL CALIFORNIA  ║
                 ╚════════════════════╝");
-
                 PrintRooms();
                 Console.WriteLine($"Hotellet får in {GetNightlyRevenue()} kr per natt.\n");
-                Console.WriteLine($"Lediga rum: {VacantRoomsToString()}\n");
-                Console.Write("Vilket rum vill du boka? ");
+                Console.WriteLine($"Lediga rum: {RoomsArrayToString(GetVacantRooms())}\n");
+                Console.WriteLine($"Upptagna rum: {RoomsArrayToString(GetOccupiedRooms())}\n");
+
+                Console.Write("Vilket rum vill du hantera? ");
                 string input = Console.ReadLine();
                 bool validInput = false;
                 validInput = int.TryParse(input, out int roomNumber);
@@ -53,16 +52,14 @@ namespace Hotellbokningen
                     }
                     else if (!IsVacant(roomNumber))
                     {
-                        Console.WriteLine($"Rum {roomNumber} är upptaget!");
-                        Console.WriteLine("Tryck någon tangent för att fortsätta.");
-                        Console.ReadKey();
+                        CheckoutRoom(roomNumber);
                     }
                     else
                     {
                         string name;
                         do
                         {
-                            Console.Write("Vad heter ni? ");
+                            Console.Write("Gästens namn? ");
                             name = Console.ReadLine();
                         } while (string.IsNullOrEmpty(name));
                             BookRoom(roomNumber, name); 
@@ -72,16 +69,52 @@ namespace Hotellbokningen
             }
             while (drawAgain);
         }
-        private static string VacantRoomsToString()
+
+        private static void CheckoutRoom(int room)
+        {
+            Console.WriteLine($"Rum {room} är upptaget!");
+            Console.WriteLine($"Vill du checka ut {GetGuest(room)} (j/n)?");
+            bool loopAgain = true;
+            while (loopAgain)
+            {
+                ConsoleKeyInfo key = Console.ReadKey(true);
+                switch (key.Key)
+                {
+                    case ConsoleKey.J:
+                        int floorNo = (int)room / 10;
+                        int roomNo = room - floorNo * 10;
+                        hotelRooms[floorNo, roomNo] = null;
+                        loopAgain = false;
+                        break;
+                    case ConsoleKey.N:
+                        loopAgain = false;
+                        break
+;                    default:
+                        break;
+                }
+                FileIO.Save(hotelRooms, fileName);
+                return;
+            }
+        }
+
+        private static string RoomsArrayToString(int[] roomList)
         {
             StringBuilder sb = new();
-            var vacantRooms = GetVacantRooms();
-            for (int i = 0; i < vacantRooms.Length; i++)
+            //var vacantRooms = GetVacantRooms();
+            for (int i = 0; i < roomList.Length; i++)
             {
-                if (i == vacantRooms.Length - 1) sb.Append($"{vacantRooms[i]:D2}");
-                else sb.Append($"{vacantRooms[i]:D2}, ");
+                if (i == roomList.Length - 1) sb.Append($"{roomList[i]:D2}");
+                else sb.Append($"{roomList[i]:D2}, ");
             }
             return sb.ToString();
+        }
+
+        static string GetGuest(int room)
+        {
+            int floorNo = (int)room / 10;
+            int roomNo = room - floorNo * 10;
+
+            return hotelRooms[floorNo, roomNo];
         }
 
         private static int[] GetVacantRooms()
@@ -108,6 +141,30 @@ namespace Hotellbokningen
             return vacantRooms;
         }
 
+        private static int[] GetOccupiedRooms()
+        {
+            //calculate how many occupied rooms
+            //create an int[]
+            //populate the array with vacant room numbers
+            int noOfOccupied = 0;
+            for (int i = 0; i < rooms.Length; i++)
+            {
+                if (!IsVacant(rooms[i])) noOfOccupied++;
+            }
+            int[] occupiedRooms = new int[noOfOccupied];
+
+            int occupiedIndex = 0;
+            for (int i = 0; i < rooms.Length; i++)  // Should iterate through all rooms
+            {
+                if (!IsVacant(rooms[i]))
+                {
+                    occupiedRooms[occupiedIndex] = rooms[i]; // Populate using correct index
+                    occupiedIndex++; // Increment index only when a vacant room is found
+                }
+            }
+            return occupiedRooms;
+        }
+
         private static int GetNightlyRevenue()
         {
             int sum = 0;
@@ -130,8 +187,9 @@ namespace Hotellbokningen
                 }
             int floorNo = (int)room / 10;
             int roomNo = room - floorNo * 10;
-            name = name.Substring(0, 11);
-            hotelRooms[floorNo,roomNo] = name;
+            string truncatedName = name.Substring(0, Math.Min(name.Length, 11)); // TODO PrintRooms() should truncate the output!!!
+            hotelRooms[floorNo,roomNo] = truncatedName;
+            FileIO.Save(hotelRooms, fileName);
         }
 
         private static bool IsVacant(int room)
