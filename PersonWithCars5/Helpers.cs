@@ -25,5 +25,31 @@ namespace PersonWithCars5
             }
             return sb.ToString();
         }
+        public static string[] GetNames()
+        {
+            string[] allNames =
+            {
+                "Karin",
+                "Anders",
+                "Johan",
+                "Eva",
+                "Maria",
+                "Mikael",
+                "Anna",
+                "Sara",
+                "Erik",
+                "Per",
+                "Christina",
+                "Lena",
+                "Lars",
+                "Emma",
+                "Kerstin",
+                "Karl",
+                "Marie",
+                "Peter"
+              };
+
+            return allNames;
+        }
     }
 }
