@@ -1,4 +1,5 @@
-﻿namespace MinaPrylar;
+﻿
+namespace MinaPrylar;
 
 public class Pet
 {
@@ -8,10 +9,11 @@ public class Pet
 
     public Pet(string name, string description, string species)
     {
-        _name = name;
+        _name = StringHelpers.FirstCharCapitalized(name);
         _description = description;
         _species = species;
     }
+
     public string GetName() => _name;
     public string GetDescription() => _description;
     public string GetSpecies() => _species;

@@ -17,7 +17,8 @@ public class Program
         twins.Add(louise);
         var myKids = new List<Kid>(twins);
 
-        var minaPrylar = new Belongings(myCars, myPet, myKids);
+        //var minaPrylar = new Belongings(myCars, myPet, myKids);
+        var minaPrylar = new Belongings();
         
         minaPrylar.Show();
     }
