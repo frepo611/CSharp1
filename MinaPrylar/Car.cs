@@ -9,4 +9,6 @@ public class Car
         _brand = brand;
         _color = color;
     }
+    public string GetBrand() => _brand;
+    public string GetColor() => _color;
 }
