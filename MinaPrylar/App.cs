@@ -2,14 +2,14 @@
 
 class App
 {
-    private Cars _myCars;
-    private Pets _myPets;
-    private Kids _myKids;
+    private List<Car> _myCars;
+    private List<Kid> _myKids;
+    private Pet _myPet;
 
-    public App(Cars myCars, Pets myPets, Kids myKids)
+    public App(List<Car> myCars, Pet myPet, List<Kid> myKids)
     {
         _myCars = myCars;
-        _myPets = myPets;
+        _myPet = myPet;
         _myKids = myKids;
     }
 

@@ -3,12 +3,12 @@
 public class Program
 {
     static void Main(string[] args)
-    {
-        var myCars = new Cars();
-        var myPets = new Pets();
-        var myKids = new Kids();
+    {   
+        var myCars = new List<Car>();
+        var myKids = new List<Kid>();
+        var myPet = new Pet();
 
-        var minApp = new App(myCars, myPets, myKids);
+        var minApp = new App(myCars, myPet, myKids);
         minApp.Run();
     }
 }

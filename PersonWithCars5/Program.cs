@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace PersonWithCars5
+﻿namespace PersonWithCars5
 {
     internal class Program
     {
@@ -13,14 +11,19 @@ namespace PersonWithCars5
 
             Random rnd = new Random();
             string[] names = Helpers.GetNames();
+            List<Person> personList = new List<Person>();
             for (int i = 0; i < 10; i++)
             {
                 Person person = new Person();
-                person.name = names[i];
+                person.name = names[rnd.Next(names.Length)];
 
                 person.birthYear = rnd.Next(1980, 2005);
                 person.hasCar = (rnd.Next(0,2) == 0) ? true : false;
                 person = Helpers.CalculateAge(person);
+                personList.Add(person);
+            }
+            foreach (Person person in personList)
+            {
                 Console.WriteLine(Helpers.BuildStory(person));
             }
         }
