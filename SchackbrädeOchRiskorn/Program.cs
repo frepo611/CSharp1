@@ -1,7 +1,7 @@
-﻿ulong[,] chessboard = new ulong[8,8];
-ulong grains = 1;
-const ulong SWEDISHPOPULATION = 10_000_000;
-const ulong GOOGLEWORTH = 1_340_000_000_000;
+﻿long[,] chessboard = new long[8,8];
+long grains = 1;
+const long SWEDISHPOPULATION = 10_000_000;
+const long GOOGLEWORTH = 1_340_000_000_000;
 bool hasHitPopulation = false;
 bool hasHitGoogleGrowth = false;
 
@@ -21,6 +21,18 @@ for (int i = 0; i < 8; i++)
             Console.WriteLine($"({i}+{j}={i + j}): {grains:E2}");
             hasHitGoogleGrowth = true;
         }
-        grains = 2 * grains;
+        checked
+        {
+            try
+            {
+                grains = 2 * grains;
+
+            }
+            catch (OverflowException ex)
+            {
+                Console.WriteLine($"Overflow triggered for square ({i},{j})");
+            }
+
+        }
     }
 };
