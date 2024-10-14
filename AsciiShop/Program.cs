@@ -6,10 +6,11 @@ internal class Program
     {
         string[,] drawing = new string[10, 15];
         int[] cursor = new int[2];
+        string metadata = String.Empty;
         while (true)
         {
             Console.Clear();
-            Helpers.Draw(drawing, cursor);
+            Helpers.Draw(drawing, cursor, metadata);
 
             ConsoleKeyInfo key = Console.ReadKey(true);
 
@@ -25,21 +26,16 @@ internal class Program
                 case ConsoleKey.W: cursor[0]--; break;
                 case ConsoleKey.S: cursor[0]++; break;
                 case ConsoleKey.F:
-                    Console.Write("Filnamn: ");
+                    Console.Write("Sparar som (filnamn): ");
                     string filename = Console.ReadLine();
                     Helpers.FileSave(drawing, filename);
                     break;
-                    //case 'l':
-                    //    Console.Write("Filnamn: ");
-                    //    string filename = Console.ReadLine();
-                    //    Helpers.FileLoad(drawing, filename);
-                    //    break;
-
+                case ConsoleKey.L:
+                    Console.Write("Ladda från (filnamn): ");
+                    filename = Console.ReadLine();
+                    (drawing,metadata) = Helpers.FileLoad(drawing, filename);
+                    break;
             }
-
-
-
-            // cursor = Helpers.ReadKeyboard(cursor);
         }
     }
 

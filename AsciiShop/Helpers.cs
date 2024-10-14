@@ -1,11 +1,15 @@
-﻿using System.Text;
+﻿using System.Reflection;
+using System.Text;
 
 namespace AsciiShop;
 
 internal class Helpers
 {
-    internal static void Draw(string[,] drawing, int[] cursor)
+    internal static void Draw(string[,] drawing, int[] cursor, string metaData)
     {
+        string filename = metaData.Split("|")[0];
+        DateTime saveDate = DateTime.Parse(metaData.Split("|")[1]);
+        Console.WriteLine($"Sparat i {filename:-28}{saveDate}");
         string frame = "#";
 
         for (int top = 0; top < drawing.GetLength(1) + 2; top++)
@@ -66,9 +70,31 @@ internal class Helpers
         }
         return stringList;
     }
-    internal static string[,] FileLoad(string fileName)
+    internal static (string[,], string) FileLoad(string[,] canvas, string fileName)
     {
-        // Övning: Skapa laddningsfunktion
-        return null;
+        string[] linesFromFile;
+        string metaData = string.Empty;
+        if (File.Exists(fileName))
+        {
+            linesFromFile = File.ReadLines(fileName).ToArray();
+            bool wantToReadMetadata = true;
+            for (int i = 0; i < linesFromFile.Length; i++)
+            {
+                if (wantToReadMetadata)
+                {
+                    metaData = linesFromFile[i];
+                    wantToReadMetadata = false;
+                }
+                else
+                {
+                    for (int j = 0; j < linesFromFile[i].Length; j++)
+                    {
+                        canvas[i,j] = linesFromFile[i][j].ToString();
+                    }
+                }
+            }
+        }
+
+        return (canvas, metaData);
     }
 }   
