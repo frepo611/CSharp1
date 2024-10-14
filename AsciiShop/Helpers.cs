@@ -1,4 +1,6 @@
-﻿namespace AsciiShop;
+﻿using System.Text;
+
+namespace AsciiShop;
 
 internal class Helpers
 {
@@ -44,12 +46,29 @@ internal class Helpers
     }
     internal static void FileSave(string[,] drawing, string fileName)
     {
-        // Övning Skapa filsparning
-
+        string metaData = $"{fileName}|{DateTime.Now}";
+        File.WriteAllText(fileName,metaData);
+        List<string> drawingAsList = Convert2DStringArrayToList(drawing);
+        File.AppendAllLines(fileName, drawingAsList);
+    }
+    internal static List<string> Convert2DStringArrayToList(string[,] array)
+    {
+        List<string> stringList = new();
+        string blankSpace = " ";
+        for (int i = 0; i < array.GetLength(0); i++)
+        {
+            StringBuilder sb = new();
+            for (int j = 0; j < array.GetLength(1); j++)
+            {
+                sb.Append(string.IsNullOrEmpty(array[i, j]) ? blankSpace :  array[i, j]);
+            }
+            stringList.Add(sb.ToString());
+        }
+        return stringList;
     }
     internal static string[,] FileLoad(string fileName)
     {
         // Övning: Skapa laddningsfunktion
         return null;
     }
-}
+}   
