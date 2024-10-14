@@ -5,36 +5,35 @@ internal class Program
     static void Main(string[] args)
     {
         string[,] drawing = new string[10, 15];
-        // drawing[3, 3] = "Z";
         int[] cursor = new int[2];
         while (true)
         {
             Console.Clear();
             Helpers.Draw(drawing, cursor);
 
-            ConsoleKeyInfo key = Console.ReadKey();
+            ConsoleKeyInfo key = Console.ReadKey(true);
 
-            switch (key.KeyChar)
+            switch (key.Key)
             {
-                //case 'x': size++; break;
-                case 'e':
+                case ConsoleKey.E:
                     Console.Write("Ange tecken: ");
-                    drawing[cursor[0], cursor[1]] = Console.ReadLine();
+                    ConsoleKeyInfo mark = Console.ReadKey(true);
+                    drawing[cursor[0], cursor[1]] = mark.KeyChar.ToString();
                     break;
-                case 'a': cursor[1]--; break;
-                case 'd': cursor[1]++; break;
-                case 'w': cursor[0]--; break;
-                case 's': cursor[0]++; break;
-                case 'f':
+                case ConsoleKey.A: cursor[1]--; break;
+                case ConsoleKey.D: cursor[1]++; break;
+                case ConsoleKey.W: cursor[0]--; break;
+                case ConsoleKey.S: cursor[0]++; break;
+                case ConsoleKey.F:
                     Console.Write("Filnamn: ");
                     string filename = Console.ReadLine();
                     Helpers.FileSave(drawing, filename);
                     break;
-                //case 'l':
-                //    Console.Write("Filnamn: ");
-                //    string filename = Console.ReadLine();
-                //    Helpers.FileLoad(drawing, filename);
-                //    break;
+                    //case 'l':
+                    //    Console.Write("Filnamn: ");
+                    //    string filename = Console.ReadLine();
+                    //    Helpers.FileLoad(drawing, filename);
+                    //    break;
 
             }
 
