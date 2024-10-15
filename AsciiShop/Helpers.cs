@@ -4,13 +4,13 @@ namespace AsciiShop;
 
 internal class Helpers
 {
-    internal static void Draw(char[,] drawing, int[] cursor, string metaData)
+    internal static void Draw(char[,] drawing, int[] cursor, string metaData, char marker)
     {
         if (!string.IsNullOrEmpty(metaData))
         {
             string filename = metaData.Split("|")[0];
             DateTime saveDate = DateTime.Parse(metaData.Split("|")[1]);
-            Console.WriteLine($"Sparat i {filename:28} {saveDate}"); 
+            Console.WriteLine($"Sparat i {filename:28} {saveDate}\n"); 
         }
         string frame = "#";
 
@@ -49,18 +49,18 @@ internal class Helpers
             Console.Write(frame);
         }
         Console.WriteLine();
+        Console.WriteLine($"Ritar med {marker}");
     }
     internal static void FileSave(char[,] drawing, string fileName)
     {
-        string metaData = $"{fileName}|{DateTime.Now}";
-        File.WriteAllText(fileName,metaData);
-        List<string> drawingAsList = Convert2DCharArrayToList(drawing);
-        File.AppendAllLines(fileName, drawingAsList);
+            string metaData = $"{fileName}|{DateTime.Now}";
+            File.WriteAllText(fileName, metaData);
+            List<string> drawingAsList = Convert2DCharArrayToList(drawing);
+            File.AppendAllLines(fileName, drawingAsList);
     }
     internal static List<string> Convert2DCharArrayToList(char[,] array)
     {
         List<string> stringList = new();
-        //char blankSpace = ' ';
         for (int i = 0; i < array.GetLength(0); i++)
         {
             StringBuilder sb = new();
@@ -97,5 +97,27 @@ internal class Helpers
             }
         }
         return (canvas, metaData);
+    }
+
+    internal static void DrawMenu()
+    {
+        Console.SetCursorPosition(20, 1);
+        Console.Write("Flytta kursorn med WASD");
+        Console.SetCursorPosition(20, 2);
+        Console.Write("Tryck SPACE för att rita.");
+        Console.SetCursorPosition(20, 3);
+        Console.Write("Tryck E för att byta tecken att rita med.");
+        Console.SetCursorPosition(20, 4);
+        Console.Write("Tryck F för att spara teckningen.");
+        Console.SetCursorPosition(20, 5);
+        Console.Write("Tryck V för att ladda en teckning från en fil.");
+        Console.SetCursorPosition(20, 6);
+        Console.Write("Tryck Q för att avsluta.");
+
+        Console.SetCursorPosition(0, 15);
+
+
+
+
     }
 }   
