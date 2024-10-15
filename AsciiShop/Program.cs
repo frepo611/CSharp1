@@ -4,22 +4,22 @@ internal class Program
 {
     static void Main(string[] args)
     {
-        string[,] drawing = new string[10, 15];
+        char[,] drawing = new char[10, 15];
         int[] cursor = new int[2];
         string metadata = String.Empty;
+
         while (true)
         {
             Console.Clear();
             Helpers.Draw(drawing, cursor, metadata);
 
             ConsoleKeyInfo key = Console.ReadKey(true);
-
             switch (key.Key)
             {
                 case ConsoleKey.E:
                     Console.Write("Ange tecken: ");
                     ConsoleKeyInfo mark = Console.ReadKey(true);
-                    drawing[cursor[0], cursor[1]] = mark.KeyChar.ToString();
+                    drawing[cursor[0], cursor[1]] = mark.KeyChar;
                     break;
                 case ConsoleKey.A: cursor[1]--; break;
                 case ConsoleKey.D: cursor[1]++; break;
