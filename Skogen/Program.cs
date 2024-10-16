@@ -1,5 +1,4 @@
 ﻿using Skogen;
-using System.Net.Quic;
 using static Skogen.Animal;
 
 Animal wolf1 = new Animal(Species.Vargen);
@@ -22,14 +21,14 @@ bool isNight = false;
 bool loopAgain = true;
 
 
-do
+while (loopAgain)
 {
     Console.WriteLine("Vad gör djuren?\n");
     Console.WriteLine("Är det dag eller natt i skogen? (D/N)?");
     bool validKey = false;
-    do
+    while (validKey == false)
     {
-        var pressedKey = Console.ReadKey(true);
+        ConsoleKeyInfo pressedKey= Console.ReadKey(true);
         switch (pressedKey.Key)
         {
             case ConsoleKey.D:
@@ -43,7 +42,7 @@ do
             default:
                 break;
         }
-    } while (validKey == false);
+    }
     Console.WriteLine();
     Console.WriteLine($"Det är {(isNight ? "natt" : "dag")} i skogen.");
     foreach (var animal in forest)
@@ -63,4 +62,4 @@ do
     }
     Console.Clear();
 
-} while (loopAgain);
+}
