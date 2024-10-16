@@ -1,9 +1,11 @@
-﻿namespace Skogen;
+﻿// Vänj dig vid att använda engelska för *allt* som inte är den del av användarupplevelsen.
+namespace Skogen;
 internal class Animal
 {
+    // "Set" är onödigt här. Utan den så vet du att ara kontruktorn kan skapa djur.
     public Species Name { get; set; }
     bool IsNoctural { get; init; }
-    string Movement { get; init; }
+    string Movement { get; init; } // Intiera till "" så slipper du varning.
 
     public Animal(Species name)
     {
@@ -47,6 +49,10 @@ internal class Animal
         }
         Console.WriteLine(activity);
     }
+
+    // En enum i bestämd form på svenska är inte det bästa för att ge djuren namn.
+    // Testa en statisk klass Species med djur i formen
+    // public static string Wolf => "Vargen";
     public enum Species
     {
         Vargen,

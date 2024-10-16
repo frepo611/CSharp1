@@ -1,6 +1,13 @@
 ﻿using Skogen;
 using static Skogen.Animal;
 
+// Du kan intitera mycket enklare så här:
+// List<Animal> animals = [
+//    new(Species.Vargen),
+//    new(Species.Ugglan];
+//
+// Och en collections med "Animal" kallas oftast bara "animals". 
+
 Animal wolf1 = new Animal(Species.Vargen);
 Animal wolf2 = new Animal(Species.Vargen);
 Animal bat1 = new Animal(Species.Fladdermusen);
