@@ -2,8 +2,8 @@
 internal class Animal
 {
     public string SpeciesName { get; }
-    bool IsNocturnal { get; init; }
-    string Movement { get; init; }
+    bool IsNocturnal { get; }
+    string Movement { get; }
 
     public Animal(string speciesName)
     {
