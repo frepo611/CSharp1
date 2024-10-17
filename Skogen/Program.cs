@@ -18,19 +18,13 @@ while (loopAgain)
     bool validKey = false;
     while (validKey == false)
     {
-        pressedKey= Console.ReadKey(true);
-        switch (pressedKey.Key)
+        pressedKey = Console.ReadKey(true);
+        (isNight, validKey) = pressedKey.Key switch //switch expression
         {
-            case ConsoleKey.D:
-                isNight = false;
-                validKey = true;
-                break;
-            case ConsoleKey.N:
-                isNight = true;
-                validKey = true;
-                break;
-            default:
-                break;
+            ConsoleKey.D => (false, true),
+            ConsoleKey.N => (true, true),
+            _ => (isNight, false) // Keep isNight unchanged, not a valid key
+        };
         }
     }
     Console.WriteLine();
@@ -42,14 +36,14 @@ while (loopAgain)
     Console.WriteLine();
     Console.WriteLine("Tryck Q för att avsluta");
     pressedKey = Console.ReadKey(true);
-    switch (pressedKey.Key)
+
+    loopAgain = pressedKey.Key switch
     {
-        case ConsoleKey.Q:
-            loopAgain = false;
-            break;
-        default:
-            break;
-    }
+        ConsoleKey.Q => false,
+        _ => loopAgain
+    };
+
     Console.Clear();
 
 }
+    
