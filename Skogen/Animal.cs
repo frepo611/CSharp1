@@ -1,21 +1,21 @@
 ﻿namespace Forest;
 internal class Animal
 {
-    public Species Name { get; }
+    public string SpeciesName { get; }
     bool IsNocturnal { get; init; }
     string Movement { get; init; }
 
-    public Animal(Species name)
+    public Animal(string speciesName)
     {
         Movement = "";
-        Name = name;
-        (IsNocturnal, Movement) = name switch //used a switch expression and tuple deconstruction instead of "switch case"
+        SpeciesName = speciesName;
+        (IsNocturnal, Movement) = speciesName switch //used a switch expression and tuple deconstruction instead of "switch case"
         {
-            Species.Vargen => (true, "jagar envist sitt byte."),
-            Species.Fladdermusen => (true, "flyger runt bland träden i jakt på mat."),
-            Species.Delfinen => (false, "simmar i floden och letar fisk."),
-            Species.Ugglan => (true, "spanar på marken efter byten."),
-            Species.Hästen => (false, "betar gräs."),
+            Species.Wolf => (true, "jagar envist sitt byte."),
+            Species.Bat => (true, "flyger runt bland träden i jakt på mat."),
+            Species.Dolphin => (false, "simmar i floden och letar fisk."),
+            Species.Owl => (true, "spanar på marken efter byten."),
+            Species.Horse => (false, "betar gräs."),
             _ => (false, "")
         };
     }
@@ -24,11 +24,11 @@ internal class Animal
         string activity;
         if (isNight == IsNocturnal)
         {
-            activity = $"{Name} {Movement}";
+            activity = $"{SpeciesName} {Movement}";
         }
         else
         {
-            activity = $"{Name} sover."; ;
+            activity = $"{SpeciesName} sover."; ;
         }
         Console.WriteLine(activity);
     }

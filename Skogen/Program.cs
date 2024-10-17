@@ -1,11 +1,11 @@
 ﻿using Forest;
 
-List<Animal> forest = [ new Animal(Species.Vargen),
-                        new Animal(Species.Vargen),
-                        new Animal(Species.Fladdermusen),
-                        new Animal(Species.Delfinen),
-                        new Animal(Species.Ugglan),
-                        new Animal(Species.Hästen)];
+List<Animal> forest = [ new Animal(Species.Wolf),
+                        new Animal(Species.Wolf),
+                        new Animal(Species.Bat),
+                        new Animal(Species.Dolphin),
+                        new Animal(Species.Owl),
+                        new Animal(Species.Horse)];
 
 bool isNight = false;
 bool loopAgain = true;
@@ -25,7 +25,6 @@ while (loopAgain)
             ConsoleKey.N => (true, true),
             _ => (isNight, false) // Keep isNight unchanged, not a valid key
         };
-        }
     }
     Console.WriteLine();
     Console.WriteLine($"Det är {(isNight ? "natt" : "dag")} i skogen.");
