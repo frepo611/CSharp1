@@ -10,7 +10,7 @@ List<Animal> forest = [ new Animal(Species.Vargen),
 bool isNight = false;
 bool loopAgain = true;
 
-
+ConsoleKeyInfo pressedKey;
 while (loopAgain)
 {
     Console.WriteLine("Vad gör djuren?\n");
@@ -18,7 +18,7 @@ while (loopAgain)
     bool validKey = false;
     while (validKey == false)
     {
-        ConsoleKeyInfo pressedKey= Console.ReadKey(true);
+        pressedKey= Console.ReadKey(true);
         switch (pressedKey.Key)
         {
             case ConsoleKey.D:
@@ -41,8 +41,8 @@ while (loopAgain)
     }
     Console.WriteLine();
     Console.WriteLine("Tryck Q för att avsluta");
-    var pressedKey1 = Console.ReadKey(true);
-    switch (pressedKey1.Key)
+    pressedKey = Console.ReadKey(true);
+    switch (pressedKey.Key)
     {
         case ConsoleKey.Q:
             loopAgain = false;
