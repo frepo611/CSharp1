@@ -1,27 +1,11 @@
 ﻿using Forest;
 
-// Du kan intitera mycket enklare så här:
-// List<Animal> animals = [
-//    new(Species.Vargen),
-//    new(Species.Ugglan];
-//
-// Och en collections med "Animal" kallas oftast bara "animals". 
-
-Animal wolf1 = new Animal(Species.Vargen);
-Animal wolf2 = new Animal(Species.Vargen);
-Animal bat1 = new Animal(Species.Fladdermusen);
-Animal doplhin = new Animal(Species.Delfinen);
-Animal eagle = new Animal(Species.Ugglan);
-Animal horse = new Animal(Species.Hästen);
-
-
-List<Animal> forest = new List<Animal>();
-forest.Add(wolf1);
-forest.Add(wolf2);
-forest.Add(bat1);
-forest.Add(doplhin);
-forest.Add(eagle);
-forest.Add(horse);
+List<Animal> forest = [ new Animal(Species.Vargen),
+                        new Animal(Species.Vargen),
+                        new Animal(Species.Fladdermusen),
+                        new Animal(Species.Delfinen),
+                        new Animal(Species.Ugglan),
+                        new Animal(Species.Hästen)];
 
 bool isNight = false;
 bool loopAgain = true;
