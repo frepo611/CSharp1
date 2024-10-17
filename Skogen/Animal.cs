@@ -60,16 +60,4 @@ internal class Animal
         }
         Console.WriteLine(activity);
     }
-
-    // En enum i bestämd form på svenska är inte det bästa för att ge djuren namn.
-    // Testa en statisk klass Species med djur i formen
-    // public static string Wolf => "Vargen";
-    public enum Species
-    {
-        Vargen,
-        Fladdermusen,
-        Delfinen,
-        Ugglan,
-        Hästen
-    }
 }
