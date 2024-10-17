@@ -5,6 +5,7 @@ internal class Clubber
     public bool IsInfected { get; private set; }
     public bool IsImmune { get; private set; }
     public int TimeSinceInfection { get; private set; }
+    public const int TIME_TO_IMMUNITY = 4;
     public Clubber(bool isInfected = false)
     {
         IsInfected = isInfected;
@@ -15,7 +16,7 @@ internal class Clubber
     {
         if (IsInfected)
             TimeSinceInfection++;
-        if (TimeSinceInfection == 5)
+        if (TimeSinceInfection == TIME_TO_IMMUNITY)
         {
             IsImmune = true;
             IsInfected = false;
