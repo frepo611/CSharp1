@@ -1,9 +1,9 @@
-﻿// Vänj dig vid att använda engelska för *allt* som inte är den del av användarupplevelsen.
+﻿namespace Forest;
 namespace Skogen;
 internal class Animal
 {
     // "Set" är onödigt här. Utan den så vet du att ara kontruktorn kan skapa djur.
-    public Species Name { get; set; }
+    bool IsNocturnal { get; init; }
     bool IsNoctural { get; init; } // Felstavad
     string Movement { get; init; } // Intiera till "" så slipper du varning.
 
@@ -13,23 +13,23 @@ internal class Animal
         switch (name)
         {
             case Species.Vargen:
-                IsNoctural = true;
+                IsNocturnal = true;
                 Movement = "jagar envist sitt byte.";
                 break;
             case Species.Fladdermusen:
-                IsNoctural = true;
+                IsNocturnal = true;
                 Movement = "flyger runt bland träden i jakt på mat.";
                 break;
             case Species.Delfinen:
-                IsNoctural = false;
+                IsNocturnal = false;
                 Movement = "simmar i floden och letar fisk.";
                 break;
             case Species.Ugglan:
-                IsNoctural = true;
+                IsNocturnal = true;
                 Movement = "spanar på marken efter byten.";
                 break;
             case Species.Hästen:
-                IsNoctural = false;
+                IsNocturnal = false;
                 Movement = "betar gräs.";
                 break;
             default:
@@ -50,7 +50,7 @@ internal class Animal
     public void Activate(bool isNight)
     {
         string activity;
-        if (isNight == IsNoctural)
+        if (isNight == IsNocturnal)
         {
             activity = $"{Name} {Movement}";
         }

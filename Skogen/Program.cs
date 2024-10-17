@@ -1,5 +1,4 @@
-﻿using Skogen;
-using static Skogen.Animal;
+﻿using Forest;
 
 // Du kan intitera mycket enklare så här:
 // List<Animal> animals = [
