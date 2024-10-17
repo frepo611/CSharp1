@@ -27,7 +27,7 @@ internal class Clubber
         if (IsInfected && !otherClubber.IsImmune && !otherClubber.IsInfected)
         {
             otherClubber.IsInfected = true;
-            Console.WriteLine($"{this.GetHashCode().ToString().Substring(0,4)} smittade {otherClubber.GetHashCode().ToString().Substring(0, 4)}");
+            Console.WriteLine($"{this.GetHashCode().ToString().Substring(2,3)} smittade {otherClubber.GetHashCode().ToString().Substring(2,3)}");
         }
     }
 }
