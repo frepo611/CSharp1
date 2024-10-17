@@ -1,7 +1,7 @@
 ﻿namespace Forest;
 internal class Animal
 {
-    public Species Name { get;}
+    public Species Name { get; }
     bool IsNocturnal { get; init; }
     string Movement { get; init; }
 
@@ -9,42 +9,15 @@ internal class Animal
     {
         Movement = "";
         Name = name;
-        switch (name)
+        (IsNocturnal, Movement) = name switch //used a switch expression and tuple deconstruction instead of "switch case"
         {
-            case Species.Vargen:
-                IsNocturnal = true;
-                Movement = "jagar envist sitt byte.";
-                break;
-            case Species.Fladdermusen:
-                IsNocturnal = true;
-                Movement = "flyger runt bland träden i jakt på mat.";
-                break;
-            case Species.Delfinen:
-                IsNocturnal = false;
-                Movement = "simmar i floden och letar fisk.";
-                break;
-            case Species.Ugglan:
-                IsNocturnal = true;
-                Movement = "spanar på marken efter byten.";
-                break;
-            case Species.Hästen:
-                IsNocturnal = false;
-                Movement = "betar gräs.";
-                break;
-            default:
-                break;
-        }
-
-        // Lite överkurs, men tilldelningen kan göras riktigt snyggt med ett switch expression och tuples + tuple deconstruction:
-        // (IsNoctural, Movement) = name switch
-        //{
-        //    Species.Vargen => (true, "jagar envist sitt byte."),
-        //    Species.Fladdermusen => (true, "flyger runt bland träden i jakt på mat."),
-        //    _ => (false, "")
-        //};
-        //
-        // När du tänker använda ett switch statement, använd ett switch expression om det funkar.
-
+            Species.Vargen => (true, "jagar envist sitt byte."),
+            Species.Fladdermusen => (true, "flyger runt bland träden i jakt på mat."),
+            Species.Delfinen => (false, "simmar i floden och letar fisk."),
+            Species.Ugglan => (true, "spanar på marken efter byten."),
+            Species.Hästen => (false, "betar gräs."),
+            _ => (false, "")
+        };
     }
     public void Activate(bool isNight)
     {
@@ -55,7 +28,7 @@ internal class Animal
         }
         else
         {
-            activity = $"{Name} sover.";            ;
+            activity = $"{Name} sover."; ;
         }
         Console.WriteLine(activity);
     }
