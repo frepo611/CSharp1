@@ -1,14 +1,13 @@
 ﻿namespace Forest;
-namespace Skogen;
 internal class Animal
 {
-    // "Set" är onödigt här. Utan den så vet du att ara kontruktorn kan skapa djur.
+    public Species Name { get;}
     bool IsNocturnal { get; init; }
-    bool IsNoctural { get; init; } // Felstavad
-    string Movement { get; init; } // Intiera till "" så slipper du varning.
+    string Movement { get; init; }
 
     public Animal(Species name)
     {
+        Movement = "";
         Name = name;
         switch (name)
         {
