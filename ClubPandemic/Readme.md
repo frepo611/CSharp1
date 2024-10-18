@@ -14,3 +14,5 @@
 * Visa i konsollen vilka som är smittade, och hur många som är immuna.
 * Visa också hur många timmar som går.
 * Hur många timmar tar det innan alla är immuna?
+# Så här försökte jag göra istället
+Varje smittad person får en chans att smitta en slumpmässig annan person. Om den andra personen är frisk och icke-immun blir den smittad.
