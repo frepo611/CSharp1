@@ -1,7 +1,7 @@
 ﻿using ClubPandemic;
 
 var clubbers = new List<Clubber>();
-for (int i = 0; i < 100; i++)
+for (int i = 0; i < 99; i++)
 {
     clubbers.Add(new Clubber());
 }

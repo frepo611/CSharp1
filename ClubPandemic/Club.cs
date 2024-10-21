@@ -17,7 +17,7 @@ internal class Club
             {
                 otherClubber = GetRandomClubber();
             }
-            clubber.Infect(otherClubber);
+            clubber.TryToInfect(otherClubber);
             clubber.PassTime();
         };
         _passedTime++;
